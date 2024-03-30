@@ -6,6 +6,11 @@
 | Muhammad Hildan Adiwena | 5027231077 |
 | Nayyara Ashila | 5027231083 |
 
+## Soal 2
+### 2a)
+Pada soal kita diminta untuk membuat program login.sh dan register.sh
+Disini saya membuat sebuah file terlebih dahulu dengan nama "sisop2" 
+Kemudian menggunakan command `nano register.sh` dan `nano login.sh` untuk membuat program di dalamnya
 
 ## Soal 3
 ### - 3a)
