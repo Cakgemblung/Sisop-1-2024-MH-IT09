@@ -18,6 +18,16 @@ Kemudian menggunakan command `nano register.sh` dan `nano login.sh` untuk membua
 ### 2B)
 Pada soal ini diminta untuk membuat setiap admin maupun user harus melakukan register terlebih dahulu menggunakan email, username, pertanyaan keamanan dan jawaban, dan password
 
+Sebelum ini, saya mengalami sedikit error seperti dibawah ini
+
+![Screenshot 2024-03-30 122908](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/e0a1b99c-0eb5-44f0-94df-530997ca358a)
+
+berikut isi filenya
+
+![Screenshot 2024-03-30 122814(1)](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/0b905bdd-039a-413a-8ecc-e2637571cb5b)
+
+ternyata penyebabanya karena terdapat `: "` yang belum terhapus, sehingga setelah saya perbaiki maka terbuatlah halaman registernya.
+
 Berikut tampilan dari halaman Register kami
 
 ![Screenshot 2024-03-30 133216](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/0be2eac6-62ad-42ed-97e8-5287c0c36270)
@@ -78,7 +88,7 @@ Berikut tampilan pada halaman register
 
 ![Screenshot 2024-03-30 134639](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/fb50cf6f-ff6e-4d05-bb9d-f33c02d17247)
 
-###2E)
+### 2E)
 Soal ini meminta untuk membuat folder users file users.txt. Di dalam file tersebut, terdapat catatan seluruh email, username, pertanyaan keamanan dan jawaban, dan password hash yang telah ia buat.
 Berikut tampilannya
 
@@ -86,18 +96,127 @@ Berikut tampilannya
 
 ### 2F)
 Soal ini meminta setelah register, data tersebut harus bisa login dengan menggunakan email dan password
-berikut adalah hasil loginnya
+Berikut code yang digunakan
+```
+echo "1. Login"
+echo "2. Forgot Password"
+read -p "Pilih menu: " choice
+
+case "$choice" in
+    1)
+        # Meminta pengguna untuk memasukkan informasi login
+        read -p "Masukkan email: " email
+
+        # Mencari pengguna dalam file users.txt
+        user_info=$(grep "^$email:" users.txt)
+
+        if [ -z "$user_info" ]; then
+            log "LOGIN FAILED" "ERROR Failed login attempt on user with email $email"
+            failure_message
+            exit 1
+        fi
+
+        # Meminta pengguna untuk memasukkan password
+        read -sp "Masukkan password: " password
+        echo
+
+        # Memeriksa password
+        stored_password=$(cut -d ':' -f 5 <<< "$user_info")
+        if [[ "$(echo -n "$password" | base64)" != "$stored_password" ]]; then
+            log "LOGIN FAILED" "ERROR Failed login attempt on user with email $email"
+            failure_message
+            exit 1
+        fi
+
+        # Memeriksa peran pengguna
+        role=$(cut -d ':' -f 6 <<< "$user_info")
+
+        # Jika pengguna adalah admin
+        if [ "$role" == "admin" ]; then
+            log "LOGIN SUCCESS" "Admin logged in successfully"
+            echo "Login berhasil sebagai admin."
+            # Panggil admin_menu di sini
+            admin_menu
+        else
+log "LOGIN SUCCESS" "User with email $email logged in successfully"
+            echo "Login berhasil sebagai user."
+        fi
+
+        success_message
+        ;;
+    2) 
+        read -p "Masukkan email: " email
+        security_question
+        ;;
+    *)
+        echo "Pilihan tidak valid"
+        ;;
+esac
+```
+
+`read -p` berfungsi untuk mencetak kalimat yang diminta, kemudian `user_info=$(grep "^$email:" users.txt)` berfungsi untuk mencari informasi pengguna dalam file users.txt yang cocok dengan alamat email yang dimasukkan. Fungsi `stored_password=$(cut -d ':' -f 5 <<< "$user_info")` untuk mendapatkan kata sandi yang tersimpan dari informasi pengguna yang ditemukan dalam file users.txt.
+Kemudian `role=$(cut -d ':' -f 6 <<< "$user_info")` berfungsi unntuk mencari peran (role) dari pengguna melalui informasi pengguna yang ditemukan dalam file users.txt.
+Dan `if [ "$role" == "admin" ];` Memeriksa apakah pengguna adalah admin atau bukan. Jika admin, pesan log akandicatat menggunakan fungsi log(), akan dicetak pesan berhasil, dan memanggil fungsi admin_menu. Jika bukan admin, pesan log dicatat menggunakan fungsi log() dan mencetak pesan berhasil.
+
+Berikut adalah tampilan hasil loginnya
 
 ![Screenshot 2024-03-30 140722](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/e845bc99-f24f-484e-8811-89e7bb44a208)
 
 ### 2G)
 Kemudian di soal tsb diminta apabila Oppie lupa password, maka ada opsi untuk menampilkan passwordnya
+Berikut adalah codenya
+```
+security_question() {
+    user_info=$(grep "^$email:" users.txt)
+    security_question=$(cut -d ':' -f 3 <<< "$user_info")
+    correct_answer=$(cut -d ':' -f 4 <<< "$user_info")
+
+    read -p "$security_question: " user_answer
+
+    if [ "$user_answer" == "$correct_answer" ]; then
+        password=$(cut -d ':' -f 5 <<< "$user_info" | base64 -d)
+        echo "Your Pasword: $password"
+        log "FORGOT PASSWORD SUCCESS" "User with email $email retrieved forgotten password"
+    else
+        echo "Your answer wrong!! Failed Login"
+        log "FORGOT PASSWORD FAILED" "ERROR Failed attempt to retrieve forgotten password on user with email $email"
+        exit 1
+    fi
+}
+```
+Fungsi `user_info=$(grep "^$email:" users.txt)` digunakan untuk mencari informasi pengguna yang sesuai dengan alamat email yang dimasukkan taadi, dengan menggunakan perintah grep untuk mencari baris dalam file users.txt yang dimulai dengan alamat email yang tepat.
+Fungsi `security_question=$(cut -d ':' -f 3 <<< "$user_info")` adalah setelah informasi pengguna ditemukan, baris ini mengambil pertanyaan keamanan dari informasi pengguna tersebut. Informasi pengguna ini dibagi menjadi beberapa bagian terpisah oleh tanda titik dua (kolon), dan yang ketiga adalah pertanyaan keamanan.
+Fungsi `correct_answer=$(cut -d ':' -f 4 <<< "$user_info")` ini mengambil jawaban yang benar dari informasi pengguna yang dimasukkan.
+Kemudian fungsi `if [ "$user_answer" == "$correct_answer" ];` untuk struktur pengkondisian yang membandingkan jawaban yang dimasukkan oleh pengguna dengan jawaban yang benar yang diambil dari informasi pengguna. Jika jawaban pengguna benar maka akan dijalankan perintah selanjutnya.
+Jika jawaban pengguna salah dari jawaban yang sudah diinput sebelumnya, maka bagian else akan dieksekusi `echo Your answer wrong!! Failed Login"` Pesan ini akan dicetak ke layar memberitahu pengguna bahwa jawaban mereka salah.
+
 Berikut adalah tampilannya
 
-![Screenshot 2024-03-30 141108](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/774c7c4f-049c-4ca8-a6e9-e66851e082be)
+![Screenshot 2024-03-30 143840](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/df6a6b92-6e22-4c57-a6ec-02e0edeb9fe4)
 
 ### 2H)
 Soal meminta untuk setelah user melakukan login akan keluar pesan sukses, namun setelah seorang admin melakukan login dia dapat menambah, mengedit (username, pertanyaan keamanan dan jawaban, dan password), dan menghapus user
+
+### 2I)
+
+### 2J)
+Oppie ingin mencatat seluruh log ke dalam folder users file auth.log, baik login ataupun register. 
+
+Berikut code yang digunakan
+```
+#Fungsi untuk mencatat log ke dalam file auth.log
+log() {
+    echo "[$(date '+%d/%m/%Y %H:%M:%S')] [$1] $2" >> auth.log
+}
+```
+saya menggunakan `log()` Ini adalah deklarasi sebuah fungsi bernama log yang akan mencatat pesan log ke dalam file auth.log
+code `echo "[$(date '+%d/%m/%Y %H:%M:%S')] [$1] $2" >> auth.log` Ini adalah perintah yang akan menampilkan pesan log ke dalam file auth.log seperti yang diminta soal
+
+Berikut adalah tampilannya
+
+![Screenshot 2024-03-30 144939](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/ae521bc3-1cb0-45eb-a294-87a205c365ce)
+
+
 
 
 
