@@ -302,7 +302,6 @@ decmove() {
 Pada fungsi `decmove` diatas saya gunakan untuk menjawab bagian selanjutnya dari soal. Awalnya saya membuat variabel `sourcepath` dan `csv_source` yang merujuk pada folder genshin_character dan file list_character.csv. Kemudian saya menggunakan `for`  untuk iterasi setiap file dalam folder sourcepath. `if [ -f "$file" ]; then` digunakan untuk memeriksa apakah file yang sedang diiterasi adalah file/direktori. `raw_name=$(basename -- "$file")` digunakan untuk mengambil nama file tanpa mengikutkan ekstensinya. Selanjutnya saya melakukan decrypt dari hex menggunakan `decrypt=$(echo -n "$raw_name" | xxd -r -p)`. Saya gunakan `extension="${file##*.}"` untuk mengambil ekstensinya saja.  `mv "$file" "$sourcepath/$decrypt.${extension}"` digunakan untuk memindah file ke direktori sourcepath dengan nama yangtelah didecrypt dengan ekstensi yang telah diambil.
 
 Berikutnya digunakan `IFS=$'\n' read -d '' -a csvname < <(tail -n +2 "$csv_source")` untuk membaca data dari file csv ke dalam `csvfile`. Pada loop berikutnya saya gunakan untuk mengiterasi dalam array csvname dan melakukan pengambilan `name,region,element, dan weapons` menggunakan`awk`. `file=$(find "$sourcepath" -type f -name "${name}.jpg")` digunakan untuk mencari file dan langkah berikutnya akan mengubah nama file, membuat region folder jika belum ada dan memindahkan file ke folder region tersebut.
-
 ### - 3b)
 #### awal.sh
 Untuk menjawab soal pada poin ini saya membuat fungsi tambahan yakni `weaponbearer` yang nantinya akan memberikan output berupa jumlah senjata yang dibawa oleh setiap karakter dan juga `remove` untuk membersihkan file yang tidak digunakan.
@@ -332,6 +331,11 @@ projectsherlock() {
 # Call fungsi
 projectsherlock
 ```
+Berikut ini adalah contoh hasil output dari code yang dijalankan
+![Screenshot 2024-03-30 190250](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/144968322/b2b4e6c0-2e86-4f7b-ab15-9adfb0558d74)
+![Screenshot 2024-03-30 190307](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/144968322/358d2ffa-7deb-40a4-8b55-e694100b4a6b)
+![Screenshot 2024-03-30 190236](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/144968322/e796ba19-772f-4d91-a6cf-db338471d8ef)
+
 ### - 3c,d,e)
 #### search.sh
 Pada 3 poin ini dapat dilakukan dengan membuat file search.sh yang digunakan untuk melakukan ekstraksi steghide yang terenkripsi. Namun perlu diketahui lebih lanjut bahwa ketika saya menggunakan enkripsi hex seperti yang diminta soal maka hasil yang diinginkan maka program tidak berhasil. Kemudian setelah melakukan analisa lebih lanjut, decrypt data dapat dilakukan dengan penggunaan base64 dan bukan hex. 
@@ -370,6 +374,11 @@ for region in "${regions[@]}"; do
 done
 ```
 Pada code diatas saya menggunakan cara yang mirip yaitu menggunakan `for` loop untuk melakukan iterasi pada file dalam folder region untuk kemudian dilakukan decrypt dan proses lebih lanjut.
+
+Berikut ini adalah hasil dari code yang dijalankan
+![Screenshot 2024-03-30 190326](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/144968322/cd762bb9-686d-4b06-be8a-2827c39deed5)
+![Screenshot 2024-03-30 190344](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/144968322/274c1f94-1851-49a5-a3d4-b0650272cf56)
+![Screenshot 2024-03-30 190416](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/144968322/fc0a83c3-9d53-4150-ab57-96226b336226)
 
 ## Soal 4
 Pada soal ini kita diminta untuk membuat monitoring resources dari suatu directory. Menggunakan command `free -m` untuk memeriksa ram dan `du -sh <target_path>` untuk memeriksa disk. Path directory yang akan dimonitor adalah `/home/{user}`
