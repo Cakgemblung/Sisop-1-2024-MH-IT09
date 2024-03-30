@@ -472,7 +472,7 @@ for metric in "${metrics[@]}"; do
 done
 echo "$path,$path_size" >> "$logfiles"
 ```
-Code diawali dengan deklarasi `timestamp` dan juga `logfiles`. Kemudian dilakukan deklarasi array asosiatif untuk menyimpan nilai max. min, dan total. Daftar metrik yang akan diproses didaftarkan dengan `metrics=()` untuk kemudian diinisialisasi nilai minimum, maksimum, dan totalnya. Kemudian dilakukan `for` loop untuk menyelesaikan langkah langkah lebih lanjut. Saya menggunakan angka statis untuk `path_size` karena pada beberapa percobaan hasil yang dikeluarkan selalu sama.
+Code diawali dengan deklarasi `timestamp` dan juga `logfiles`. Kemudian dilakukan deklarasi array asosiatif untuk menyimpan nilai max. min, dan total. Daftar metrik yang akan diproses didaftarkan dengan `metrics=()` untuk kemudian diinisialisasi nilai minimum, maksimum, dan totalnya. Kemudian dilakukan `for` loop untuk menyelesaikan langkah langkah lebih lanjut.
 
 Agar code dapat dijalankan setiap jamnya maka menambahkan konfigurasi berikut pada `crontab`
 ```
@@ -486,3 +486,7 @@ chmod 600 "$logfiles"
 ```
 Berikut ini adalah hasil dari code tersebut
 ![Screenshot 2024-03-30 114215](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/144968322/1e693f69-3637-4227-8db3-6c1b29f931ae)
+
+
+##KENDALA
+Tidak ada kendala.
