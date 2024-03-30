@@ -127,7 +127,7 @@ Berikut tampilannya
 ![Screenshot 2024-03-30 135109](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/09224302-8efc-435d-8504-4ce441d9b59d)
 
 ### 2F)
-Soal ini meminta setelah register, data tersebut harus bisa login dengan menggunakan email dan password
+Soal ini meminta kita setelah register, data tersebut harus bisa login dengan menggunakan email dan password
 Berikut code yang digunakan
 ```
 echo "1. Login"
@@ -188,7 +188,7 @@ esac
 
 `read -p` berfungsi untuk mencetak kalimat yang diminta, kemudian `user_info=$(grep "^$email:" users.txt)` berfungsi untuk mencari informasi pengguna dalam file users.txt yang cocok dengan alamat email yang dimasukkan. Fungsi `stored_password=$(cut -d ':' -f 5 <<< "$user_info")` untuk mendapatkan kata sandi yang tersimpan dari informasi pengguna yang ditemukan dalam file users.txt.
 Kemudian `role=$(cut -d ':' -f 6 <<< "$user_info")` berfungsi unntuk mencari peran (role) dari pengguna melalui informasi pengguna yang ditemukan dalam file users.txt.
-Dan `if [ "$role" == "admin" ];` Memeriksa apakah pengguna adalah admin atau bukan. Jika admin, pesan log akandicatat menggunakan fungsi log(), akan dicetak pesan berhasil, dan memanggil fungsi admin_menu. Jika bukan admin, pesan log dicatat menggunakan fungsi log() dan mencetak pesan berhasil.
+Dan `if [ "$role" == "admin" ];` Memeriksa apakah pengguna adalah admin atau bukan. Jika admin, pesan log akan dicatat menggunakan fungsi log(), akan dicetak pesan berhasil, dan memanggil fungsi admin_menu. Jika bukan admin, pesan log dicatat menggunakan fungsi log() dan mencetak pesan berhasil.
 
 Berikut adalah tampilan hasil loginnya
 
@@ -229,7 +229,33 @@ Berikut adalah tampilannya
 ### 2H)
 Soal meminta untuk setelah user melakukan login akan keluar pesan sukses, namun setelah seorang admin melakukan login dia dapat menambah, mengedit (username, pertanyaan keamanan dan jawaban, dan password), dan menghapus user
 
+Sebelumnya code saya tidak dapat menjalankan perintah tersebut, berikut outputnya
+![Screenshot 2024-03-29 141622 (1)](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/06034af7-3373-4d6c-8354-a50e0bcd8a4c)
+
+Sehingga setelah saya perbaiki, 
+berikut tampilannya
+ - Tambah user
+   ![Screenshot 2024-03-30 230942](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/b35ffbce-8bf6-4d86-b651-7b3aa75be100)
+ - Edit User
+   ![Screenshot 2024-03-30 231624](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/01f49429-9efa-4f96-9186-9fc08166194d)
+ - Hapus User
+   ![Screenshot 2024-03-30 231448](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/57d368ec-7e87-47f2-987a-26df6be919ac)
+
 ### 2I)
+Ketika admin ingin melakukan edit atau hapus user, maka akan keluar input email untuk identifikasi user yang akan di hapus atau di edit
+
+Berikut code yang digunakan
+```
+add_new_user() {
+    read -p "Enter new username         : " new_username
+    read -p "Enter new email            : " new_email
+    read -p "Enter new security question: " security_question
+    read -p "Enter new security answer  : " security_answer
+    read -sp "Enter new password        : " new_password
+    echo
+```
+`read -p` akan mencatat data yang dimasukkan user kemudian di simpan di dalam kumpulan data
+
 
 ### 2J)
 Oppie ingin mencatat seluruh log ke dalam folder users file auth.log, baik login ataupun register. 
@@ -248,7 +274,6 @@ Untuk menampilkan folder tersebut saya memakai command `cat auth.log`1
 Berikut adalah tampilannya
 
 ![Screenshot 2024-03-30 144939](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/ae521bc3-1cb0-45eb-a294-87a205c365ce)
-
 
 
 ## Soal 3
