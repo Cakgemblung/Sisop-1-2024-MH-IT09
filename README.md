@@ -239,3 +239,5 @@ Agar izin hanya bisa dibaca oleh user pemilik file menggunakan command berikut
 ```
 chmod 600 "$logfiles"
 ```
+Berikut ini adalah hasil dari code tersebut
+![Screenshot 2024-03-30 114215](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/144968322/1e693f69-3637-4227-8db3-6c1b29f931ae)
