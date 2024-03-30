@@ -6,6 +6,29 @@
 | Muhammad Hildan Adiwena | 5027231077 |
 | Nayyara Ashila | 5027231083 |
 
+## Soal 1
+
+```
+wget --no-check-certificate 'https://drive.google.com/uc?export=download&id=1cC6MYBI3wRwDgqlFQE1OQUN83JAreId0' -O Sandbox.csv
+```
+Fungsi diatas untuk mendownload file dari link yang telah tersedia.
+```
+(awk -F',' 'NR>1 {penjualan[$6] += $17} END {for (customer in penjualan) print penjualan[customer], customer}' Sandbox.csv | sort -nr | head -1)
+```
+Fungsi diatas untuk memperlihatkan penjualan tertinggi.
+```
+(awk -F',' 'NR>1 {profit[$7] += $20} END {for (segment in profit) print profit[segment], segment}' Sandbox.csv | sort -t',' -k1,1n | head -1)
+```
+Fungsi command diatas untuk memperlihatkan total profit terendah.
+```
+(awk -F',' 'NR>1 {profit[$14] += $20} END {for (category in profit) print profit[category], category}' Sandbox.csv | sort -t',' -k1,1nr | head -3)
+```
+Fungsi command diatas untuk memperlihatkan 3 besar yang memperoleh profit tertinggi.
+```
+grep 'Adriaens' Sandbox.csv | awk -F ',' '{print $2, $6, $17}'
+```
+Fungsi command diatas untuk memperlihatkan detail pesanan Adriaens grayland.
+
 ## Soal 2
 ### 2A)
 Pada soal ini kita diminta untuk membuat program login.sh dan register.sh
