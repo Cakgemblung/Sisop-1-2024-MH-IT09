@@ -42,7 +42,7 @@ Fungsi `echo` untuk menampilkan sebuah kalimat, kemudian `read -p "Enter your em
 ### 2C)
 Soal ini meminta untuk username yang dibuat bebas, namun email bersifat unique. setiap email yang mengandung kata admin akan dikategorikan menjadi admin 
 
-![Screenshot 2024-03-30 131759](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/8fa5967e-36f3-4dac-8662-42070e1a35b8)
+![Screenshot 2024-03-30 130221](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/9f75600a-d894-4832-a81c-07ace64de73f)
 
 pada gambar diatas terlihat bahwa jika kita login sebagai admin akan dikategorikan sebagai admin
 
