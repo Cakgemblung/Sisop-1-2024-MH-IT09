@@ -9,6 +9,9 @@
 ## Soal 2
 ### 2A)
 Pada soal ini kita diminta untuk membuat program login.sh dan register.sh
+
+![Screenshot 2024-03-30 124531](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/7cadd862-0775-4e0e-a7a9-afd6763c119f)
+
 Disini saya membuat sebuah folder terlebih dahulu dengan nama "sisop2" 
 Kemudian menggunakan command `nano register.sh` dan `nano login.sh` untuk membuat program di dalam file tersebut
 
