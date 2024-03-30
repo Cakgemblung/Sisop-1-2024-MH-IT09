@@ -216,7 +216,7 @@ security_question() {
     fi
 }
 ```
-Fungsi `user_info=$(grep "^$email:" users.txt)` digunakan untuk mencari informasi pengguna yang sesuai dengan alamat email yang dimasukkan taadi, dengan menggunakan perintah grep untuk mencari baris dalam file users.txt yang dimulai dengan alamat email yang tepat.
+Fungsi `user_info=$(grep "^$email:" users.txt)` digunakan untuk mencari informasi pengguna yang sesuai dengan alamat email yang dimasukkan tadi, dengan menggunakan perintah grep untuk mencari baris dalam file users.txt yang dimulai dengan alamat email yang tepat.
 Fungsi `security_question=$(cut -d ':' -f 3 <<< "$user_info")` adalah setelah informasi pengguna ditemukan, baris ini mengambil pertanyaan keamanan dari informasi pengguna tersebut. Informasi pengguna ini dibagi menjadi beberapa bagian terpisah oleh tanda titik dua (kolon), dan yang ketiga adalah pertanyaan keamanan.
 Fungsi `correct_answer=$(cut -d ':' -f 4 <<< "$user_info")` ini mengambil jawaban yang benar dari informasi pengguna yang dimasukkan.
 Kemudian fungsi `if [ "$user_answer" == "$correct_answer" ];` untuk struktur pengkondisian yang membandingkan jawaban yang dimasukkan oleh pengguna dengan jawaban yang benar yang diambil dari informasi pengguna. Jika jawaban pengguna benar maka akan dijalankan perintah selanjutnya.
