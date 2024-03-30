@@ -162,6 +162,9 @@ Untuk menjawab soal ini saya menggunakan `crontab` agar script diatas dapat berj
 ```
 */1 * * * * /home/azrael/sisop/modul1/soal4/minute_log.sh
 ```
+Berikut ini adalah hasil dari code tersebut
+![Screenshot 2024-03-30 114259](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/144968322/6d794092-38a8-445a-a074-f11978ac6d84)
+
 ### - 4c)
 #### aggregate_minutes_to_hourly_log.sh
 Pada soal ini kami diminta untuk membuat sebuah script agregasi file log ke satuan jam dimana nantinya script ini akan memiliki info dari file log yang tergenerate setiap menitnya. Pada script ini juga harus terdapat nilai minimum, maximum, dan rata-rata tiap metrics.
