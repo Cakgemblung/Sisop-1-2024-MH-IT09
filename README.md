@@ -88,7 +88,7 @@ Soal ini meminta untuk username yang dibuat bebas, namun email bersifat unique. 
 pada gambar diatas terlihat bahwa jika kita login sebagai admin akan dikategorikan sebagai admin
 
 ### 2D)
-Soal memnita untuk:
+Soal meminta untuk:
 - Password tersebut harus di encrypt menggunakan base64
 - Password yang dibuat harus lebih dari 8 karakter
 - Harus terdapat paling sedikit 1 huruf kapital dan 1 huruf kecil
@@ -235,11 +235,17 @@ Sebelumnya code saya tidak dapat menjalankan perintah tersebut, berikut outputny
 Sehingga setelah saya perbaiki, 
 berikut tampilannya
  - Tambah user
+   
    ![Screenshot 2024-03-30 230942](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/b35ffbce-8bf6-4d86-b651-7b3aa75be100)
+   
  - Edit User
+   
    ![Screenshot 2024-03-30 231624](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/01f49429-9efa-4f96-9186-9fc08166194d)
+   
  - Hapus User
+   
    ![Screenshot 2024-03-30 231448](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/57d368ec-7e87-47f2-987a-26df6be919ac)
+
 
 ### 2I)
 Ketika admin ingin melakukan edit atau hapus user, maka akan keluar input email untuk identifikasi user yang akan di hapus atau di edit
@@ -270,7 +276,7 @@ log() {
 saya menggunakan `log()` Ini adalah deklarasi sebuah fungsi bernama log yang akan mencatat pesan log ke dalam file auth.log
 code `echo "[$(date '+%d/%m/%Y %H:%M:%S')] [$1] $2" >> auth.log` Ini adalah perintah yang akan menampilkan pesan log ke dalam file auth.log seperti yang diminta soal
 
-Untuk menampilkan folder tersebut saya memakai command `cat auth.log`1
+Untuk menampilkan folder tersebut saya memakai command `cat auth.log`
 Berikut adalah tampilannya
 
 ![Screenshot 2024-03-30 144939](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/ae521bc3-1cb0-45eb-a294-87a205c365ce)
