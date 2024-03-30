@@ -90,6 +90,7 @@ Berikut tampilan pada halaman register
 
 ### 2E)
 Soal ini meminta untuk membuat folder users file users.txt. Di dalam file tersebut, terdapat catatan seluruh email, username, pertanyaan keamanan dan jawaban, dan password hash yang telah ia buat.
+Untuk menampilkan folder tersebut saya memakai command `cat users.txt`
 Berikut tampilannya
 
 ![Screenshot 2024-03-30 135109](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/09224302-8efc-435d-8504-4ce441d9b59d)
@@ -212,15 +213,10 @@ log() {
 saya menggunakan `log()` Ini adalah deklarasi sebuah fungsi bernama log yang akan mencatat pesan log ke dalam file auth.log
 code `echo "[$(date '+%d/%m/%Y %H:%M:%S')] [$1] $2" >> auth.log` Ini adalah perintah yang akan menampilkan pesan log ke dalam file auth.log seperti yang diminta soal
 
+Untuk menampilkan folder tersebut saya memakai command `cat auth.log`1
 Berikut adalah tampilannya
 
 ![Screenshot 2024-03-30 144939](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/ae521bc3-1cb0-45eb-a294-87a205c365ce)
-
-
-
-
-
-
 
 
 
