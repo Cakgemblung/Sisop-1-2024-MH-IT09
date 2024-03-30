@@ -12,8 +12,88 @@ Pada soal ini kita diminta untuk membuat program login.sh dan register.sh
 
 ![Screenshot 2024-03-30 124531](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/7cadd862-0775-4e0e-a7a9-afd6763c119f)
 
-Disini saya membuat sebuah folder terlebih dahulu dengan nama ###sisop2 
+Disini saya membuat sebuah folder terlebih dahulu dengan nama "sisop2" 
 Kemudian menggunakan command `nano register.sh` dan `nano login.sh` untuk membuat program di dalam file tersebut
+
+### 2B)
+Pada soal ini diminta untuk membuat setiap admin maupun user harus melakukan register terlebih dahulu menggunakan email, username, pertanyaan keamanan dan jawaban, dan password
+
+Berikut tampilan dari halaman Register kami
+![Screenshot 2024-03-30 133216](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/0be2eac6-62ad-42ed-97e8-5287c0c36270)
+
+kemudian ini code yang digunakan
+```
+echo "                                        "
+echo "========================================"
+echo "===WELCOME TO OUR SYSTEM REGISTRATION==="
+echo "========================================"
+echo "
+
+#Memasukkan informasi registrasi pengguna
+read -p "Enter your email                   : " email
+read -p "Enter your username                : " username
+read -p "Enter a security question          : " security_question
+read -p "Enter the answer to security answer: " security_answer
+```
+Fungsi `echo` untuk menampilkan sebuah kalimat, kemudian `read -p "Enter your email: " email` berguna untuk memasukkan email pengguna ke dalam data dari email-email yang lain, begitu juga seterusnya.
+
+### 2C)
+Soal ini meminta untuk username yang dibuat bebas, namun email bersifat unique. setiap email yang mengandung kata admin akan dikategorikan menjadi admin 
+![Screenshot 2024-03-30 131759](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/8fa5967e-36f3-4dac-8662-42070e1a35b8)
+pada gambar diatas terlihat bahwa jika kita login sebagai admin akan dikategorikan sebagai admin
+
+### 2D)
+Soal memnta untuk:
+- Password tersebut harus di encrypt menggunakan base64
+- Password yang dibuat harus lebih dari 8 karakter
+- Harus terdapat paling sedikit 1 huruf kapital dan 1 huruf kecil
+- Harus terdapat paling sedikit 1 angka
+Berikut adalah code yang digunakan
+
+  ```
+  #Mengekripsi password 
+encrypt_password() {
+    echo -n "$1" | base64
+}
+  ```
+Fungsi encrypt_password() untuk mengenkripsi password menggunakan algoritma encoding Base64 seperti yang diminta soal.
+
+```
+#Memeriksa apakah password memenuhi persyaratan yang diminta
+    if [ ${#password} -lt 8 ] || ! grep -q [[:lower:]] <<< "$password" || ! grep -q [[:upper:]] <<< "$password" || ! grep -q [[:digit:]] <<< "$password"; then
+        echo "Password must be more than eight characters, have at least one capital letter, one lowercase letter, and one number"
+    else
+        valid_password=true
+    fi
+done
+```
+karena ketentuan password adalah 8 huruf, mengandung huruf kapital dan huruf kecil makan kita menggunakan code tersebut kemudian apabila password tersebut tidak memenuhi ketentuan maka pengguna diminta untuk mengisi kembali password nya.
+berikut tampilan pada halaman register
+![Screenshot 2024-03-30 134639](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/fb50cf6f-ff6e-4d05-bb9d-f33c02d17247)
+
+###2E)
+Soal ini meminta untuk membuat folder users file users.txt. Di dalam file tersebut, terdapat catatan seluruh email, username, pertanyaan keamanan dan jawaban, dan password hash yang telah ia buat.
+Berikut tampilannya
+![Screenshot 2024-03-30 135109](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/09224302-8efc-435d-8504-4ce441d9b59d)
+
+###2F)
+Soal ini meminta setelah register, data tersebut harus bisa login dengan menggunakan email dan password
+berikut adalah hasil loginnya
+![Screenshot 2024-03-30 140722](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/e845bc99-f24f-484e-8811-89e7bb44a208)
+
+###2G)
+Kemudian di soal tsb diminta apabila Oppie lupa password, maka ada opsi untuk menampilkan passwordnya
+Berikut adalah tampilannya
+![Screenshot 2024-03-30 141108](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/774c7c4f-049c-4ca8-a6e9-e66851e082be)
+
+###2H)
+Soal meminta untuk setelah user melakukan login akan keluar pesan sukses, namun setelah seorang admin melakukan login dia dapat menambah, mengedit (username, pertanyaan keamanan dan jawaban, dan password), dan menghapus user
+
+
+
+
+
+
 
 ## Soal 3
 ### - 3a)
