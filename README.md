@@ -167,65 +167,65 @@ Untuk menjawab soal ini saya menggunakan `crontab` agar script diatas dapat berj
 Pada soal ini kami diminta untuk membuat sebuah script agregasi file log ke satuan jam dimana nantinya script ini akan memiliki info dari file log yang tergenerate setiap menitnya. Pada script ini juga harus terdapat nilai minimum, maximum, dan rata-rata tiap metrics.
 Berikut ini adalah code yang telah kami buat
 ```
-time=$(date +"%Y%m%d%H%M%S")
-output_file="/home/azrael/log/metrics_agg_$time.log"
+#!/bin/bash
 
-# Inisialisasi file log
-echo -n "minimum" > "$output_file"
+timestamp=$(date +"%Y%m%d%H")
+logfiles="/home/azrael/log/metrics_agg_${timestamp}.log"
 
-# Fungsi untuk menghitung nilai minimum
-calculate_min() {
-    awk -F ',' -v col="$1" 'NR==1 {min=$col} NR>1 && $col<min {min=$col} NR==60 {exit} END {print min}' /home/azrael/log/*.log
-}
+declare -A min_values
+declare -A max_values
+declare -A total_values
 
-# Fungsi untuk menghitung nilai maksimum
-calculate_max() {
-    awk -F ',' -v col="$1" 'NR==1 {max=$col} NR>1 && $col>max {max=$col} NR==60 {exit} END {print max}' /home/azrael/log/*.log
-}
+metrics=("mem_total" "mem_used" "mem_free" "mem_shared" "mem_buff" "mem_available" "swap_total" "swap_used" "swap_free")
 
-# Menambahkan nilai minimum untuk setiap kolom
-for i in {1..7}
-do
-    echo -n ",$(calculate_min "$i")" >> "$output_file"
+for metric in "${metrics[@]}"; do
+    min_values["$metric"]=99999999
+    max_values["$metric"]=0
+    total_values["$metric"]=0
 done
 
-# Menambahkan nilai kolom ke-8
-echo -n ",$(awk -F ',' 'NR==60 {print $8}' /home/azrael/log/*.log)" >> "$output_file"
+count=0
+path="/home/azrael"
+path_size="6.2G"
 
-# Menambahkan nilai minimum untuk kolom ke-9
-echo -n ",$(calculate_min 9)" >> "$output_file"
+for logfile in /home/azrael/log/metrics_*.log; do
+    while IFS=',' read -r mem_total mem_used mem_free mem_shared mem_buff mem_available swap_total swap_used swap_free _ _; do
+        ((count++))
 
-# Menambahkan label "maximum"
-echo -e -n "\nmaximum" >> "$output_file"
+        for i in "${!metrics[@]}"; do
+            metric=${metrics[$i]}
+            value=${!metric}
 
-# Menambahkan nilai maksimum untuk setiap kolom
-for i in {1..7}
-do
-    echo -n ",$(calculate_max "$i")" >> "$output_file"
+            ((value < min_values["$metric"])) && min_values["$metric"]=$value
+            ((value > max_values["$metric"])) && max_values["$metric"]=$value
+
+            total_values["$metric"]=$((total_values["$metric"] + value))
+        done
+    done < "$logfile"
 done
 
-# Menambahkan nilai kolom ke-8
-echo -n ",$(awk -F ',' 'NR==60 {print $8}' /home/azrael/log/*.log)" >> "$output_file"
-
-# Menambahkan nilai maksimum untuk kolom ke-9
-echo -n ",$(calculate_max 9)" >> "$output_file"
-
-# Menambahkan label "average"
-echo -e -n "\naverage" >> "$output_file"
-
-# Menghitung nilai rata-rata untuk setiap kolom
-for i in {1..7}
-do
-    avg_val=$(awk -F ',' -v col="$i" '{sum += $col} END {if (NR > 0) print sum / NR}' /home/azrael/log/*.log)
-    echo -n ",$avg_val" >> "$output_file"
+echo -e "type,mem_total,mem_used,mem_free,mem_shared,mem_buff,mem_available,swap_total,swap_used,swap_free,path,path_size" > "$logfiles"
+echo -n "minimum," >> "$logfiles"
+for metric in "${metrics[@]}"; do
+    echo -n "${min_values["$metric"]}," >> "$logfiles"
 done
+echo "$path,$path_size" >> "$logfiles"
 
-# Menambahkan nilai kolom ke-8
-echo -n ",$(awk -F ',' 'NR==60 {print $8}' /home/azrael/log/*.log)" >> "$output_file"
+echo -n "maximum," >> "$logfiles"
+for metric in "${metrics[@]}"; do
+    echo -n "${max_values["$metric"]}," >> "$logfiles"
+done
+echo "$path,$path_size" >> "$logfiles"
 
-# Menghitung nilai rata-rata untuk kolom ke-9
-echo -n ",$(awk -F ',' '{sum += $9} END {if (NR > 0) print sum / NR}' /home/azrael/log/*.log)" >> "$output_file"
+echo -n "average," >> "$logfiles"
+for metric in "${metrics[@]}"; do
+    avg_value=$((total_values["$metric"] / count))
+    echo -n "$avg_value," >> "$logfiles"
+done
+echo "$path,$path_size" >> "$logfiles"
 ```
+Code diawali dengan deklarasi `timestamp` dan juga `logfiles`. Kemudian dilakukan deklarasi array asosiatif untuk menyimpan nilai max. min, dan total. Daftar metrik yang akan diproses didaftarkan dengan `metrics=()` untuk kemudian diinisialisasi nilai minimum, maksimum, dan totalnya. Kemudian dilakukan `for` loop untuk menyelesaikan langkah langkah lebih lanjut. Saya menggunakan angka statis untuk `path_size` karena pada beberapa percobaan hasil yang dikeluarkan selalu sama.
+
 Agar code dapat dijalankan setiap jamnya maka menambahkan konfigurasi berikut pada `crontab`
 ```
 0 * * * * /home/azrael/soal_4/aggregate_minutes_to_hourly_log.sh
@@ -234,5 +234,5 @@ Agar code dapat dijalankan setiap jamnya maka menambahkan konfigurasi berikut pa
 #### aggregate_minutes_to_hourly_log.sh
 Agar izin hanya bisa dibaca oleh user pemilik file menggunakan command berikut
 ```
-chmod 600 /home/azrael/log/metrics_agg_$time.log
+chmod 600 "$logfiles"
 ```
