@@ -19,9 +19,11 @@ Kemudian menggunakan command `nano register.sh` dan `nano login.sh` untuk membua
 Pada soal ini diminta untuk membuat setiap admin maupun user harus melakukan register terlebih dahulu menggunakan email, username, pertanyaan keamanan dan jawaban, dan password
 
 Berikut tampilan dari halaman Register kami
+
 ![Screenshot 2024-03-30 133216](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/0be2eac6-62ad-42ed-97e8-5287c0c36270)
 
 kemudian ini code yang digunakan
+
 ```
 echo "                                        "
 echo "========================================"
@@ -39,16 +41,18 @@ Fungsi `echo` untuk menampilkan sebuah kalimat, kemudian `read -p "Enter your em
 
 ### 2C)
 Soal ini meminta untuk username yang dibuat bebas, namun email bersifat unique. setiap email yang mengandung kata admin akan dikategorikan menjadi admin 
+
 ![Screenshot 2024-03-30 131759](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/80327619/8fa5967e-36f3-4dac-8662-42070e1a35b8)
+
 pada gambar diatas terlihat bahwa jika kita login sebagai admin akan dikategorikan sebagai admin
 
 ### 2D)
-Soal memnta untuk:
+Soal memnita untuk:
 - Password tersebut harus di encrypt menggunakan base64
 - Password yang dibuat harus lebih dari 8 karakter
 - Harus terdapat paling sedikit 1 huruf kapital dan 1 huruf kecil
 - Harus terdapat paling sedikit 1 angka
-Berikut adalah code yang digunakan
+Berikut adalah code yang digunakan:
 
   ```
   #Mengekripsi password 
@@ -56,7 +60,7 @@ encrypt_password() {
     echo -n "$1" | base64
 }
   ```
-Fungsi encrypt_password() untuk mengenkripsi password menggunakan algoritma encoding Base64 seperti yang diminta soal.
+Fungsi `encrypt_password()` untuk mengenkripsi password menggunakan algoritma encoding Base64 seperti yang diminta soal.
 
 ```
 #Memeriksa apakah password memenuhi persyaratan yang diminta
