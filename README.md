@@ -15,18 +15,26 @@ Fungsi diatas untuk mendownload file dari link yang telah tersedia.
 ```
 (awk -F',' 'NR>1 {penjualan[$6] += $17} END {for (customer in penjualan) print penjualan[customer], customer}' Sandbox.csv | sort -nr | head -1)
 ```
+![Screenshot from 2024-03-30 21-15-43](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/151426649/ac9bade3-72a5-487a-9b69-2844e19b61bc)
+
 Fungsi diatas untuk memperlihatkan penjualan tertinggi.
 ```
 (awk -F',' 'NR>1 {profit[$7] += $20} END {for (segment in profit) print profit[segment], segment}' Sandbox.csv | sort -t',' -k1,1n | head -1)
 ```
+![Screenshot from 2024-03-30 21-18-18](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/151426649/166ee863-576b-4c25-b158-3329f060e9d1)
+
 Fungsi command diatas untuk memperlihatkan total profit terendah.
 ```
 (awk -F',' 'NR>1 {profit[$14] += $20} END {for (category in profit) print profit[category], category}' Sandbox.csv | sort -t',' -k1,1nr | head -3)
 ```
+![Screenshot from 2024-03-30 21-16-16](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/151426649/7f20ed42-8332-4dcb-b012-4327c98062a4)
+
 Fungsi command diatas untuk memperlihatkan 3 besar yang memperoleh profit tertinggi.
 ```
 grep 'Adriaens' Sandbox.csv | awk -F ',' '{print $2, $6, $17}'
 ```
+![Screenshot from 2024-03-30 21-22-11](https://github.com/Cakgemblung/Sisop-1-2024-MH-IT09/assets/151426649/f543ca5f-b867-4f49-a78c-af7764bb395e)
+
 Fungsi command diatas untuk memperlihatkan detail pesanan Adriaens grayland.
 
 ## Soal 2
